@@ -11,6 +11,10 @@
         <package name="com.zerobase.travel.user.dto"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mapper/com/zerobase/travel/user/UserMapper.xml"/>
+        <!--<mapper resource="mapper/com/zerobase/travel/user/UserMapper.xml"/>-->
+        <mapper resource="mapper/BoardMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/FestivalMapper.xml"/>
+        <mapper resource="mapper/FestivalReviewMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zerobase.travel.festival.mapper.FestivalMapper">
+
+<select id="list" resultType="com.zerobase.travel.festival.dto.FestivalDTO">
+    select * from festival
+</select>
+
+<select id="search" resultType="com.zerobase.travel.festival.dto.FestivalDTO">
+    select * from festival where name like concat('%',#{keyword},'%')
+</select>
+
+<select id="get" resultType="com.zerobase.travel.festival.dto.FestivalDTO" parameterType="long">
+    select * from festival where festival_id = #{festivalId}
+</select>
+
+</mapper>
