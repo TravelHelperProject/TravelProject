@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zerobase.travel.boardcomment.mapper.CommentMapper">
+
+    <insert id="insertComment" parameterType="com.zerobase.travel.boardcomment.dto.CommentDTO">
+            insert into board_comment (reply_id, board_id, user_id, content,created_at)
+            values (#{replyId},#{boardId},#{userId},#{content},#{createdAt})
+    </insert>
+
+    <select id="listComment" resultType="com.zerobase.travel.boardcomment.dto.CommentDTO">
+        select * from board_comment where board_id = #{boardId}
+    </select>
+
+    <update id="modifyComment">
+        update board_comment
+        set content = #{commentDTO.content}
+        where board_id = #{boardId} and reply_id = #{replyId}
+    </update>
+
+    <delete id="deleteComment">
+        delete from board_comment
+        where board_id = #{boardId} and reply_id = #{replyId}
+    </delete>
+
+</mapper>
