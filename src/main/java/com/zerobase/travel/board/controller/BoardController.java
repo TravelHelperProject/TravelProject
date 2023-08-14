@@ -87,10 +87,7 @@ public class BoardController {
         }
     }
     @GetMapping("/board/search") // 게시글 키워드 검색
-    public ResponseEntity<List<BoardDTO>> boardSearch(@RequestBody String keyword) {
-
-        Criteria cri = new Criteria();
-        cri.setKeyword(keyword);
+    public ResponseEntity<List<BoardDTO>> boardSearch(@RequestBody Criteria cri) {
 
         List<BoardDTO> list= boardService.search(cri);
 

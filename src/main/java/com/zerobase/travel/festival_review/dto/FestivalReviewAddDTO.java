@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FestivalReviewDTO {
+public class FestivalReviewAddDTO {
 
     private long reviewId;
     private long festivalId;

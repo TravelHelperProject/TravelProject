@@ -2,7 +2,6 @@ package com.zerobase.travel.festival_review.dto;
 
 import lombok.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Getter
@@ -10,13 +9,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FestivalReviewDTO {
+public class FestivalReviewModifyDTO {
 
     private long reviewId;
     private long festivalId;
     private long userId;
     private String content;
-    private String writer;
     private int grade;
     private LocalDate createDate;
 

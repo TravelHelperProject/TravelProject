@@ -21,5 +21,4 @@ public class FestivalDTO {
     private String phoneNumber;
     private Double latitude;
     private Double longitude;
-    private String keyword;
 }

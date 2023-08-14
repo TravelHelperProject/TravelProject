@@ -1,5 +1,6 @@
 package com.zerobase.travel.festival.controller;
 
+import com.zerobase.travel.board.dto.Criteria;
 import com.zerobase.travel.festival.dto.FestivalDTO;
 import com.zerobase.travel.festival.service.FestivalService;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,9 @@ public class FestivalController {
     }
 
     @GetMapping("/festival/search") // 축제 키워드 검색
-    public ResponseEntity<List<FestivalDTO>> festivalSearch(@RequestBody String keyword) {
+    public ResponseEntity<List<FestivalDTO>> festivalSearch(@RequestBody Criteria cri) {
 
-        List<FestivalDTO> festivalDTO = service.search(keyword);
+        List<FestivalDTO> festivalDTO = service.search(cri);
         return ResponseEntity.status(HttpStatus.OK).body(festivalDTO);
     }
     @GetMapping("/festival/{festivalId}") // 축제 상세조회

@@ -36,7 +36,7 @@
 
     <!--게시글 검색-->
     <select id="searchBoard" resultType="com.zerobase.travel.board.dto.BoardDTO">
-      select * from board  where title like concat('%', #{keyword}, '%') or content like concat('%',#{keyword},'%')
+      select * from board  where title like concat('%', #{keyword}, '%') or content like concat('%', #{keyword},'%')
     </select>
 
     <!--조회수-->

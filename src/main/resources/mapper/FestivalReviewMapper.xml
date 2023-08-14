@@ -4,4 +4,24 @@
 <mapper namespace="com.zerobase.travel.festival_review.mapper.FestivalReviewMapper">
 
 
+    <select id="list" resultType="com.zerobase.travel.festival_review.dto.FestivalReviewDTO">
+        select * from festival_review where festival_id = #{festivalId}
+    </select>
+
+    <insert id="insert">
+        insert into festival_review (review_id, festival_id, user_id, content, writer, grade, create_date)
+        values (#{reviewId}, #{festivalId}, #{userId}, #{content}, #{writer},#{grade},#{createDate})
+    </insert>
+
+    <update id="modify">
+        update  festival_review
+        set content = #{content},
+            grade = #{grade}
+        where review_id = #{reviewId} and festival_id = #{festivalId}
+
+    </update>
+
+    <delete id="delete">
+        delete  from  festival_review where festival_id = #{festivalId} and review_id = #{reviewId}
+    </delete>
 </mapper>

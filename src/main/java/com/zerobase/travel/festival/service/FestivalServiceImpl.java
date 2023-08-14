@@ -1,5 +1,6 @@
 package com.zerobase.travel.festival.service;
 
+import com.zerobase.travel.board.dto.Criteria;
 import com.zerobase.travel.festival.dto.FestivalDTO;
 import com.zerobase.travel.festival.mapper.FestivalMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class FestivalServiceImpl implements FestivalService{
     }
 
     @Override
-    public List<FestivalDTO> search(String keyword) {
-        return mapper.search(keyword);
+    public List<FestivalDTO> search(Criteria cri) {
+        return mapper.search(cri);
     }
 
     @Override
