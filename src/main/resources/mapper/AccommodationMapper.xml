@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper연결시 AccommodationMapper.xml 과 mapper를 연결해줘야 한다.-->
+<!--mybatis-config 연결도 해주어야 함-->
+<mapper namespace="com.zerobase.travel.accommodations.mapper.AccommodationMapper">
+
+<!--    전체조회기능-->
+    <select id="accommodationList" resultType="com.zerobase.travel.accommodations.dto.AccommodationDto">
+        SELECT *
+        FROM accommodation
+    </select>
+
+<!--    검색기능-->
+    <select id="accommodationSearch" resultType="com.zerobase.travel.accommodations.dto.AccommodationDto">
+        SELECT *
+        FROM accommodation
+        where room_location like concat('%',#{keyword},'%')
+        or room_name like concat('%',#{keyword},'%')
+    </select>
+
+
+</mapper>
