@@ -30,8 +30,8 @@
 
     <!--게시글 등록-->
     <insert id="insertBoard">
-        insert into board (board_id, user_id, title, writer, created_at, content, read_cnt)
-        values (#{boardId},#{userId},#{title},#{writer}, #{createdAt},#{content},#{readCnt})
+        insert into board (user_id, title, writer, created_at, content, read_cnt)
+        values (#{userId},#{title},#{writer}, #{createdAt},#{content},#{readCnt})
     </insert>
 
     <!--게시글 검색-->

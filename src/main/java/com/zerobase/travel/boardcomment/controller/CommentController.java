@@ -1,6 +1,7 @@
 package com.zerobase.travel.boardcomment.controller;
 
 import com.zerobase.travel.board.dto.ModifyBoardDTO;
+import com.zerobase.travel.board.exception.BoardFailException;
 import com.zerobase.travel.boardcomment.dto.AddCommentDTO;
 import com.zerobase.travel.boardcomment.dto.CommentDTO;
 import com.zerobase.travel.boardcomment.service.CommentService;
@@ -18,6 +19,7 @@ public class CommentController {
 
     private final CommentService service;
 
+
     //댓글 등록
     @PostMapping("/board/{boardId}/comment")
     public ResponseEntity<String> commentInsert(@PathVariable long boardId, @RequestBody AddCommentDTO commentDTO) {
@@ -29,6 +31,7 @@ public class CommentController {
                 .content(commentDTO.getContent())
                 .createdAt(LocalDate.now())
                 .build();
+
         if (service.insert(comment)) {
             return ResponseEntity.status(HttpStatus.CREATED).body("댓글 등록 성공");
         } else {

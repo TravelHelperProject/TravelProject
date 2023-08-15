@@ -60,3 +60,6 @@ VALUES
     (56, '김천김장도마귀치마축제', '2023-08-12', '2023-08-12', '054-420-1611', 36.123495, 128.212967);
 
 commit;
+
+--id값들 자동 증가
+alter table board modify board_id int  not null auto_increment;
