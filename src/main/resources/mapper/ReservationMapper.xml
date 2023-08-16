@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper연결시 AccommodationMapper.xml 과 mapper를 연결해줘야 한다.-->
+<!--mybatis-config 연결도 해주어야 함-->
+<mapper namespace="com.zerobase.travel.reservation.mapper.ReservationMapper">
+
+<!--    숙소예약기능-->
+    <insert id="reservationSave">
+        <selectKey keyProperty="reservationId" resultType="int" order="BEFORE">
+            SELECT IFNULL(MAX(reservation_id)+1,1) FROM reservation
+        </selectKey>
+        INSERT into reservation(reservation_id,room_id,user_id,payment_check,payment_date)
+        values (#{reservationId},#{roomId},#{userId},#{request.paymentCheck},now())
+
+    </insert>
+
+</mapper>
