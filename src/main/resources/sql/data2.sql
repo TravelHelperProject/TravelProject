@@ -85,11 +85,11 @@ CREATE TABLE `accommodation_review` (
                                         `review_id` bigint NOT NULL,
                                         `room_id` bigint NOT NULL,
                                         `user_id` bigint NOT NULL,
-                                        `content` VARCHAR(255) NULL,
-                                        `writer` VARCHAR(255) NULL,
+                                        `content` VARCHAR(255) NOT NULL,
+                                        `writer` VARCHAR(255) NOT NULL,
                                         `created_at` datetime NULL,
                                         `updated_at` datetime NULL,
-                                        `grade` int NULL
+                                        `grade` int NOT NULL
 );
 
 -- board 테이블 생성
