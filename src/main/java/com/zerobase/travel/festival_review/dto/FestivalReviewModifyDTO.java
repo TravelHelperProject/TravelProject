@@ -11,11 +11,7 @@ import java.time.LocalDate;
 @Builder
 public class FestivalReviewModifyDTO {
 
-    private long reviewId;
-    private long festivalId;
-    private long userId;
     private String content;
     private int grade;
-    private LocalDate createDate;
 
 }

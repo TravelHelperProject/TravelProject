@@ -9,7 +9,7 @@ import java.util.List;
 public interface FestivalReviewMapper {
     List<FestivalReviewDTO> list(long festivalId);
     int insert(FestivalReviewDTO festivalReviewDTO);
-    int modify(FestivalReviewDTO festivalReviewDTO);
+    int modify(long festivalId, long reviewId,FestivalReviewDTO festivalReviewDTO);
     int delete(long festivalId, long reviewId);
     FestivalReviewDTO get(long reviewId);
 }
