@@ -2,9 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.zerobase.travel.user.mapper.UserMapper">
-    <select id="findUserEmail">
+    <select id="findUserEmail" parameterType="String"
+        resultType="com.zerobase.travel.user.dto.UserDTO">
+        SELECT
+            user_id,
+            email,
+            password,
+            nickname,
+            created_at,
+            phone_num
+        FROM user
+        WHERE email = #{email}
+    </select>
+    <select id="findUser" parameterType="String"
+        resultType="com.zerobase.travel.user.dto.UserDTO">
         SELECT
             user_id,
             email,
@@ -14,37 +26,24 @@
         FROM user
         WHERE email = #{email}
     </select>
-    <select id="findUser">
-        SELECT
-            user_id,
-            email,
-            password,
-            nickname,
-            created_at
-        FROM user
-        WHERE email = #{email}
-    </select>
-    <select id="findUserNickname">
+    <select id="findUserNickname" parameterType="String"
+            resultType="com.zerobase.travel.user.dto.UserDTO">
         SELECT nickname
         FROM user
         WHERE nickname = #{nickname}
     </select>
-    <insert id="signIn">
+    <insert id="signIn" parameterType="com.zerobase.travel.user.dto.UserDTO">
         INSERT INTO user
             (email, password, name, phone_num, nickname, created_at)
         VALUES
             (#{email}, #{password}, #{name}, #{phoneNum}, #{nickname}, now())
     </insert>
-    <select id="findUserLoginEmail">
+    <select id="findUserLoginEmail" parameterType="String"
+            resultType="String">
         SELECT email
         FROM user
         WHERE name = #{name} AND phone_num = #{phoneNum}
     </select>
-    <update id="updatePassword">
-        UPDATE user
-        SET password = #{password}
-        WHERE email = #{email}
-    </update>
 
 
 </mapper>

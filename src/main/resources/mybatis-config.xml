@@ -8,10 +8,15 @@
     </settings>
 
     <typeAliases>
-        <package name="com.zerobase.travel.user.dto"/>
+        <package name="com.zerobase.travel.user.dto.SignInDTO"/>
+        <package name="com.zerobase.travel.user.dto.FindUserEmailDTO"/>
+        <package name="com.zerobase.travel.user.dto.TokenDTO"/>
+        <package name="com.zerobase.travel.user.dto.UserDTO"/>
+        <package name="com.zerobase.travel.user.dto.LoginDTO"/>
+<!--        여기는 디티오 만들때마다 하나씩 추가해줘야 합니다! 아하....감사합니다..!!-->
     </typeAliases>
     <mappers>
-        <!--<mapper resource="mapper/com/zerobase/travel/user/UserMapper.xml"/>-->
+        <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/BoardMapper.xml"/>
         <mapper resource="mapper/CommentMapper.xml"/>
         <mapper resource="mapper/FestivalMapper.xml"/>

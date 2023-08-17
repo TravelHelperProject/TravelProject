@@ -5,11 +5,11 @@ import com.zerobase.travel.board.dto.BoardDTO;
 import com.zerobase.travel.board.dto.Criteria;
 import com.zerobase.travel.board.dto.ModifyBoardDTO;
 import com.zerobase.travel.board.service.BoardServiceImpl;
-import lombok.Builder;
+import com.zerobase.travel.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +18,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@Log
-@Builder
 public class BoardController {
 
     private final BoardServiceImpl boardService;
@@ -69,12 +67,12 @@ public class BoardController {
     }
 
     @PostMapping("/board") // 게시글 등록
-    public ResponseEntity<String> boardInsert(@RequestBody AddBoardDTO addBoard) {
+    public ResponseEntity<String> boardInsert(@RequestBody AddBoardDTO addBoard, @AuthenticationPrincipal UserDTO user) {
         BoardDTO boardDTO = BoardDTO.builder()
                 .boardId(addBoard.getBoardId())
-                .userId(addBoard.getUserId())
+                .userId(user.getUserId())
                 .title(addBoard.getTitle())
-                .writer(addBoard.getWriter())
+                .writer(user.getNickname())
                 .content(addBoard.getContent())
                 .createdAt(LocalDate.now())
                 .readCnt(addBoard.getReadCnt())

@@ -1,9 +1,6 @@
 package com.zerobase.travel.user.controller;
 
-import com.zerobase.travel.user.dto.LoginDTO;
-import com.zerobase.travel.user.dto.SignInDTO;
-import com.zerobase.travel.user.dto.TokenDTO;
-import com.zerobase.travel.user.dto.UserDTO;
+import com.zerobase.travel.user.dto.*;
 import com.zerobase.travel.user.exception.LoginFailedException;
 import com.zerobase.travel.user.exception.SignInFailedException;
 import com.zerobase.travel.user.exception.UserNotFoundException;
@@ -25,7 +22,7 @@ import javax.servlet.http.Cookie;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/signIn")
+    @PostMapping("/signUp")
     public ResponseEntity join(@RequestBody SignInDTO signInDTO) {
         ResponseEntity responseEntity = null;
 
@@ -42,30 +39,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDTO loginDTO) {
-        ResponseEntity responseEntity = null;
-
+    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         try {
             String userEmail = userService.login(loginDTO);
             TokenDTO token = userService.tokenGenerator(userEmail);
-            ResponseCookie responseCookie =
-                    ResponseCookie.from(HttpHeaders.SET_COOKIE, token.getRefreshToken())
-                            .path("/")
-                            .maxAge(60 * 60 * 24 * 14) //2주
-                            .httpOnly(true)
-                            .build();
+            return new ResponseEntity<TokenDTO>(token,HttpStatus.OK);
 
-            responseEntity = ResponseEntity.status(HttpStatus.OK)
-                    .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-                    .body("로그인 성공");
         } catch (LoginFailedException e) {
             log.debug(e.getMessage());
-            responseEntity = ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
+            TokenDTO result = new TokenDTO();
+            result.setMessage(e.getMessage());
+            return new ResponseEntity<TokenDTO>(result,HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+            TokenDTO result = new TokenDTO();
+            result.setMessage(e.getMessage());
+            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
-
-        return responseEntity;
     }
 
     @PostMapping("/logout")
@@ -92,11 +82,11 @@ public class UserController {
     }
 
     @PostMapping("/findId")
-    public ResponseEntity findUserEmail(@RequestBody UserDTO userDTO) {
+    public ResponseEntity findUserEmail(@RequestBody FindUserEmailDTO findUserEmailDTO) {
         ResponseEntity responseEntity = null;
 
         try {
-            String result = userService.findUserLoginEmail(userDTO.getName(), userDTO.getPhoneNum());
+            String result = userService.findUserLoginEmail(findUserEmailDTO);
             responseEntity = ResponseEntity.status(HttpStatus.OK)
                     .body(result);
         } catch (UserNotFoundException e) {
