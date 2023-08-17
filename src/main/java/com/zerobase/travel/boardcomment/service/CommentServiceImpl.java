@@ -32,4 +32,9 @@ public class CommentServiceImpl implements CommentService {
     public boolean delete(long boardId, long replyId) {
         return mapper.deleteComment(boardId , replyId) == 1;
     }
+
+    @Override
+    public CommentDTO get(long replyId) {
+        return mapper.getComment(replyId);
+    }
 }

@@ -24,12 +24,17 @@ public class FestivalReviewServiceImpl implements  FestivalReviewService{
     }
 
     @Override
-    public boolean modify(FestivalReviewDTO festivalReviewDTO) {
-        return mapper.modify(festivalReviewDTO) == 1;
+    public boolean modify(long festivalId, long reviewId,FestivalReviewDTO festivalReviewDTO) {
+        return mapper.modify(festivalId,reviewId,festivalReviewDTO) == 1;
     }
 
     @Override
     public boolean delete(long festivalId, long reviewId) {
         return mapper.delete(festivalId, reviewId) == 1;
+    }
+
+    @Override
+    public FestivalReviewDTO get(long reviewId) {
+        return mapper.get(reviewId);
     }
 }

@@ -14,7 +14,7 @@
 
     <update id="modifyComment">
         update board_comment
-        set content = #{commentDTO.content}
+        set content = IFNULL(#{commentDTO.content},content)
         where board_id = #{boardId} and reply_id = #{replyId}
     </update>
 
@@ -23,4 +23,7 @@
         where board_id = #{boardId} and reply_id = #{replyId}
     </delete>
 
+    <select id="getComment" resultType="com.zerobase.travel.boardcomment.dto.CommentDTO">
+        select * from board_comment where reply_id = #{replyId}
+    </select>
 </mapper>

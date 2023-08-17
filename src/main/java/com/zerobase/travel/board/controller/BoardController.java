@@ -7,11 +7,14 @@ import com.zerobase.travel.board.dto.ModifyBoardDTO;
 import com.zerobase.travel.board.exception.BoardFailException;
 import com.zerobase.travel.board.exception.NotFoundException;
 import com.zerobase.travel.board.service.BoardServiceImpl;
+import com.zerobase.travel.user.dto.UserDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,31 +58,38 @@ public class BoardController {
     }
 
     @PutMapping("/board/{boardId}") // 게시글 수정
-    public ResponseEntity<String> boardModify(@PathVariable long boardId, @RequestBody ModifyBoardDTO boardDTO) {
+    public ResponseEntity<String> boardModify(@PathVariable long boardId, @RequestBody ModifyBoardDTO boardDTO ,
+                                              @AuthenticationPrincipal UserDTO user) {
+        if(boardService.get(boardId).getUserId() == (user.getUser_id())) {
+            BoardDTO modifyBoard = BoardDTO.builder()
+                    .title(boardDTO.getTitle())
+                    .content(boardDTO.getContent())
+                    .updateDate(LocalDate.now())
+                    .build();
 
-        BoardDTO modifyBoard = BoardDTO.builder()
-                .title(boardDTO.getTitle())
-                .content(boardDTO.getContent())
-                .updateDate(LocalDate.now())
-                .build();
-
-        if (boardService.modify(boardId, modifyBoard)) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("수정에 성공했습니다.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정에 실패했습니다.");
+            if (boardService.modify(boardId, modifyBoard)) {
+                return ResponseEntity.status(HttpStatus.CREATED).body("수정에 성공했습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정에 실패했습니다.");
+            }
         }
-
-
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디가 일치하지 않습니다.");
     }
 
-    @DeleteMapping("/board/{boardId}") // 게시글 삭제
-    public ResponseEntity<String> boardDelete(@PathVariable long boardId) {
+    @DeleteMapping("/board/{boardId}")
+    // 게시글 삭제
+    public ResponseEntity<String> boardDelete(@PathVariable long boardId, @AuthenticationPrincipal UserDTO user) {
 
-        if (boardService.delete(boardId)) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("삭제에 성공했습니다.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제에 실패했습니다.");
+        if(boardService.get(boardId).getUserId() == (user.getUser_id())) {
+            if (boardService.delete(boardId)) {
+                return ResponseEntity.status(HttpStatus.CREATED).body("삭제에 성공했습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제에 실패했습니다.");
+            }
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디가 일치하지 않습니다.");
+
+
 
     }
     @ExceptionHandler(BoardFailException.class)
@@ -88,12 +98,13 @@ public class BoardController {
     }
 
     @PostMapping("/board") // 게시글 등록
-    public ResponseEntity<String> boardInsert(@RequestBody AddBoardDTO addBoard) {
+    public ResponseEntity<String> boardInsert(@RequestBody AddBoardDTO addBoard, @AuthenticationPrincipal UserDTO user) {
+
         BoardDTO boardDTO = BoardDTO.builder()
                 .boardId(addBoard.getBoardId())
-                .userId(addBoard.getUserId())
+                .userId(user.getUser_id())
                 .title(addBoard.getTitle())
-                .writer(addBoard.getWriter())
+                .writer(user.getNickname())
                 .content(addBoard.getContent())
                 .createdAt(LocalDate.now())
                 .readCnt(addBoard.getReadCnt())

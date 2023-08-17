@@ -15,8 +15,8 @@
 
     <update id="modify">
         update  festival_review
-        set content = #{content},
-            grade = #{grade}
+        set content =IFNULL(#{festivalReviewDTO.content}, content),
+            grade = IFNULL(#{festivalReviewDTO.grade}, grade)
         where review_id = #{reviewId} and festival_id = #{festivalId}
 
     </update>
@@ -24,4 +24,8 @@
     <delete id="delete">
         delete  from  festival_review where festival_id = #{festivalId} and review_id = #{reviewId}
     </delete>
+
+    <select id="get" resultType="com.zerobase.travel.festival_review.dto.FestivalReviewDTO">
+        select  * from festival_review where review_id = #{reviewId}
+    </select>
 </mapper>

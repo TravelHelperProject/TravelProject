@@ -11,4 +11,5 @@ public interface CommentMapper {
     public List<CommentDTO> listComment(long boardId);
     public int modifyComment(long boardId, long replyId, CommentDTO commentDTO);
     public int deleteComment(long boardId, long replyId);
+    public CommentDTO getComment(long reviewId);
 }

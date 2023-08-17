@@ -16,9 +16,9 @@
     <!--게시글 수정-->
     <update id="modifyBoard">
        update board
-       set title = #{boardDTO.title},
-           content = #{boardDTO.content},
-           update_date = #{boardDTO.updateDate}
+       set title = IFNULL(#{boardDTO.title},title),
+           content = IFNULL(#{boardDTO.content},content),
+           update_date = IFNULL(#{boardDTO.updateDate}, update_date)
        where board_id = #{boardId}
     </update>
 
