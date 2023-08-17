@@ -33,7 +33,7 @@ CREATE TABLE `reservation` (
                                `reservation_id` bigint NOT NULL,
                                `room_id` bigint NOT NULL,
                                `user_id` bigint NOT NULL,
-                               `payment_check` boolean NULL,
+                               `payment_check` boolean not NULL,
                                `payment_date` datetime NULL
 );
 
