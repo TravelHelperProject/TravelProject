@@ -2,15 +2,17 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--셀렉트 절에는 파라미터타입이랑 리절트 타입명시해주는것이 좋은 습관입니다.-->
 <mapper namespace="com.zerobase.travel.user.mapper.UserMapper">
-    <select id="findUserEmail">
+    <select id="findUserEmail" parameterType="String"
+        resultType="com.zerobase.travel.user.dto.UserDTO">
         SELECT
             user_id,
             email,
             password,
             nickname,
-            created_at
+            created_at,
+            phone_num
         FROM user
         WHERE email = #{email}
     </select>
@@ -35,7 +37,8 @@
         VALUES
             (#{email}, #{password}, #{name}, #{phoneNum}, #{nickname}, now())
     </insert>
-    <select id="findUserLoginEmail">
+    <select id="findUserLoginEmail" parameterType="String"
+            resultType="String">
         SELECT email
         FROM user
         WHERE name = #{name} AND phone_num = #{phoneNum}
