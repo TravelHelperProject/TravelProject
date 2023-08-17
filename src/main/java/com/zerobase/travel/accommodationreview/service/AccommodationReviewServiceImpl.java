@@ -4,9 +4,12 @@ import com.zerobase.travel.accommodationreview.dto.AccommodationReviewDto;
 import com.zerobase.travel.accommodationreview.dto.PostsRequestDto;
 import com.zerobase.travel.accommodationreview.dto.UpdateRequestDto;
 import com.zerobase.travel.accommodationreview.mapper.AccommodationReviewMapper;
+import com.zerobase.travel.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 
 import org.apache.ibatis.jdbc.Null;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -27,6 +30,7 @@ public class AccommodationReviewServiceImpl implements AccommodationReviewServic
     @Override
     public void reviewSave(int roomId, PostsRequestDto postsRequestDto){
         //todo: 리뷰 저장
+
         accommodationReviewMapper.reviewSave(roomId, postsRequestDto);
     }
 
@@ -62,6 +66,11 @@ public class AccommodationReviewServiceImpl implements AccommodationReviewServic
     public AccommodationReviewDto reviewFindById(int reviewId){
         return accommodationReviewMapper.reviewFindById(reviewId);
     }
+
+    public boolean reviewUserCheck(int reviewId, UserDTO user){
+        return user.getUserId() == reviewFindById(reviewId).getUserId();
+    }
+
 
 
 }
