@@ -23,11 +23,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signUp")
-    public ResponseEntity join(@RequestBody SignInDTO signInDTO) {
+    public ResponseEntity join(@RequestBody SignUpDTO signUpDTO) {
         ResponseEntity responseEntity = null;
 
         try {
-            userService.signIn(signInDTO);
+            userService.signIn(signUpDTO);
             responseEntity = ResponseEntity.status(HttpStatus.OK)
                     .body("회원가입이 완료되었습니다.");
         } catch (SignInFailedException e) {
