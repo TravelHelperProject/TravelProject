@@ -13,10 +13,22 @@
         <package name="com.zerobase.travel.user.dto.TokenDTO"/>
         <package name="com.zerobase.travel.user.dto.UserDTO"/>
         <package name="com.zerobase.travel.user.dto.LoginDTO"/>
+
+        <package name="com.zerobase.travel.accommodationreview.dto.AccommodationReviewDto"/>
+        <package name="com.zerobase.travel.accommodationreview.dto.UpdateRequestDto"/>
+        <package name="com.zerobase.travel.accommodationreview.dto.PostsRequestDto"/>
+        <package name="com.zerobase.travel.reservation.dto.PostReservationDto"/>
+        <package name="com.zerobase.travel.accommodations.dto.AccommodationDto"/>
+        <package name="com.zerobase.travel.accommodations.dto.KeywordDto"/>
 <!--        여기는 디티오 만들때마다 하나씩 추가해줘야 합니다! 아하....감사합니다..!!-->
     </typeAliases>
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
+
+        <mapper resource="mapper/ReservationMapper.xml"/>
+        <mapper resource="mapper/AccommodationReviewMapper.xml"/>
+        <mapper resource="mapper/AccommodationMapper.xml"/>
+
         <mapper resource="mapper/BoardMapper.xml"/>
         <mapper resource="mapper/CommentMapper.xml"/>
         <mapper resource="mapper/FestivalMapper.xml"/>
