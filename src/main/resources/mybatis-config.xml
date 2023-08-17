@@ -18,7 +18,7 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/BoardMapper.xml"/>
-        <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/BoardCommentMapper.xml"/>
         <mapper resource="mapper/FestivalMapper.xml"/>
         <mapper resource="mapper/FestivalReviewMapper.xml"/>
     </mappers>

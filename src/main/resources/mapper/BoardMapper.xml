@@ -43,4 +43,8 @@
     <update id="readCntBoard">
         update board set read_cnt = read_cnt +1 where board_id = #{boardId}
     </update>
+
+    <select id="getComment" resultType="com.zerobase.travel.boardcomment.dto.CommentDTO">
+        select * from board_comment where reply_id = #{replyId}
+    </select>
 </mapper>

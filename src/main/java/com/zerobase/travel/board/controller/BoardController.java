@@ -53,32 +53,37 @@ public class BoardController {
     }
 
     @PutMapping("/board/{boardId}") // 게시글 수정
-    public ResponseEntity<String> boardModify(@PathVariable long boardId, @RequestBody ModifyBoardDTO boardDTO) {
+    public ResponseEntity<String> boardModify(@PathVariable long boardId,
+                                              @RequestBody ModifyBoardDTO boardDTO,
+                                              @AuthenticationPrincipal UserDTO user) {
+        if(boardService.get(boardId).getUserId() == user.getUserId()) {
+            BoardDTO modifyBoard = BoardDTO.builder()
+                    .title(boardDTO.getTitle())
+                    .content(boardDTO.getContent())
+                    .updateDate(LocalDate.now())
+                    .build();
 
-        BoardDTO modifyBoard = BoardDTO.builder()
-                .title(boardDTO.getTitle())
-                .content(boardDTO.getContent())
-                .updateDate(LocalDate.now())
-                .build();
-
-        if (boardService.modify(boardId, modifyBoard)) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("수정에 성공했습니다.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정에 실패했습니다.");
+            if (boardService.modify(boardId, modifyBoard)) {
+                return ResponseEntity.status(HttpStatus.CREATED).body("수정에 성공했습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정에 실패했습니다.");
+            }
         }
-
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("동일한 아이디가 아닙니다.");
 
     }
 
     @DeleteMapping("/board/{boardId}") // 게시글 삭제
-    public ResponseEntity<String> boardDelete(@PathVariable long boardId) {
-
-        if (boardService.delete(boardId)) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("삭제에 성공했습니다.");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제에 실패했습니다.");
+    public ResponseEntity<String> boardDelete(@PathVariable long boardId,
+                                              @AuthenticationPrincipal UserDTO user) {
+        if(boardService.get(boardId).getUserId() == user.getUserId()) {
+            if (boardService.delete(boardId)) {
+                return ResponseEntity.status(HttpStatus.CREATED).body("삭제에 성공했습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제에 실패했습니다.");
+            }
         }
-
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("동일한 아이디가 아닙니다.");
     }
     @ExceptionHandler(BoardFailException.class)
     public ResponseEntity<String> handlerBoardFailException(BoardFailException e) {

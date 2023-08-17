@@ -32,4 +32,8 @@ public class FestivalReviewServiceImpl implements  FestivalReviewService{
     public boolean delete(long festivalId, long reviewId) {
         return mapper.delete(festivalId, reviewId) == 1;
     }
+    @Override
+    public FestivalReviewDTO get(long reviewId) {
+        return mapper.get(reviewId);
+    }
 }

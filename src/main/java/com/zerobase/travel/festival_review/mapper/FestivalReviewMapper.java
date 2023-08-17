@@ -11,4 +11,5 @@ public interface FestivalReviewMapper {
     int insert(FestivalReviewDTO festivalReviewDTO);
     int modify(FestivalReviewDTO festivalReviewDTO);
     int delete(long festivalId, long reviewId);
+    FestivalReviewDTO get(long reviewId);
 }

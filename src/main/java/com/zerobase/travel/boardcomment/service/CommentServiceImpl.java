@@ -1,7 +1,7 @@
 package com.zerobase.travel.boardcomment.service;
 
 import com.zerobase.travel.boardcomment.dto.CommentDTO;
-import com.zerobase.travel.boardcomment.mapper.CommentMapper;
+import com.zerobase.travel.boardcomment.mapper.BoardCommentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private final CommentMapper mapper;
+    private final BoardCommentMapper mapper;
 
     @Override
     public boolean insert(CommentDTO commentDTO) {
@@ -31,5 +31,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public boolean delete(long boardId, long replyId) {
         return mapper.deleteComment(boardId , replyId) == 1;
+    }
+    @Override
+    public CommentDTO get(long replyId) {
+        return mapper.getComment(replyId);
     }
 }

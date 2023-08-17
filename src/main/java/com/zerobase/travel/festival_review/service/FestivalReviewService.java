@@ -10,5 +10,5 @@ public interface FestivalReviewService {
     boolean insert(FestivalReviewDTO festivalReviewDTO);
     boolean modify(FestivalReviewDTO festivalReviewDTO);
     boolean delete(long festivalId, long reviewId);
-
+    FestivalReviewDTO get(long reviewId);
 }
