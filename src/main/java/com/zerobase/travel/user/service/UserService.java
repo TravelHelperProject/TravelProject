@@ -1,10 +1,7 @@
 package com.zerobase.travel.user.service;
 
-import com.zerobase.travel.user.config.JwtTokenProvider;
-import com.zerobase.travel.user.dto.LoginDTO;
-import com.zerobase.travel.user.dto.SignInDTO;
-import com.zerobase.travel.user.dto.TokenDTO;
-import com.zerobase.travel.user.dto.UserDTO;
+import com.zerobase.travel.user.jwt.JwtTokenProvider;
+import com.zerobase.travel.user.dto.*;
 
 import com.zerobase.travel.user.exception.LoginFailedException;
 import com.zerobase.travel.user.exception.SignInFailedException;
@@ -74,15 +71,15 @@ public class UserService {
         String refreshToken = jwtTokenProvider.createRefreshToken(userEmail);
 
         return TokenDTO.builder()
-                .accessToken("Bearer" + accessToken)
-                .refreshToken("Bearer" + refreshToken)
+                .accessToken("Bearer " + accessToken)
+                .refreshToken("Bearer " + refreshToken)
                 .build();
     }
 
     //아이디찾기
-    public String findUserLoginEmail(String name, String phoneNum) {
-        if (!userMapper.findUserLoginEmail(name, phoneNum).isEmpty()){
-            return userMapper.findUserLoginEmail(name, phoneNum);
+    public String findUserLoginEmail(FindUserEmailDTO findUserEmailDTO) {
+        if (!userMapper.findUserLoginEmail(findUserEmailDTO).isEmpty()){
+            return userMapper.findUserLoginEmail(findUserEmailDTO);
         } else {
             throw new UserNotFoundException("이메일을 찾을 수 없습니다.");
         }

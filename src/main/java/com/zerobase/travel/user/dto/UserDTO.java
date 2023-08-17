@@ -13,7 +13,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO implements UserDetails {
-    private Long user_id;
+    private int userId;
     private String email;
     private String password;
     private String name;

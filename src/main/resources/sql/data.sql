@@ -91,6 +91,7 @@ CREATE TABLE `accommodation_review` (
                                         `grade` int NULL
 );
 
+use travel;
 -- board 테이블 생성
 CREATE TABLE `board` (
                          `board_id` bigint NOT NULL,

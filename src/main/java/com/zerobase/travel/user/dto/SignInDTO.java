@@ -1,12 +1,12 @@
 package com.zerobase.travel.user.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignInDTO {
     private String email;
     private String password;
