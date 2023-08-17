@@ -77,7 +77,7 @@ public class FestivalReviewController {
                     .grade(dto.getGrade())
                     .build();
 
-            if (service.modify(festivalReviewDTO)) {
+            if (service.modify(festivalId,reviewId,festivalReviewDTO)) {
                 return ResponseEntity.status(HttpStatus.CREATED).body("리뷰글 수정 성공");
             } else {
                 return ResponseEntity.status(HttpStatus.CREATED).body("리뷰글 수정 실패");
