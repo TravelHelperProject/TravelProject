@@ -13,5 +13,5 @@ public interface UserMapper {
     Optional<UserDTO> findUserNickname(String nickname);
     String findUserLoginEmail(FindUserEmailDTO findUserEmailDTO);
 
-    void signIn(UserDTO userDTO);
+    void signUp(UserDTO userDTO);
 }

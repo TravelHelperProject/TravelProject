@@ -8,7 +8,7 @@
     </settings>
 
     <typeAliases>
-        <package name="com.zerobase.travel.user.dto.SignInDTO"/>
+        <package name="com.zerobase.travel.user.dto.SignUpDTO"/>
         <package name="com.zerobase.travel.user.dto.FindUserEmailDTO"/>
         <package name="com.zerobase.travel.user.dto.TokenDTO"/>
         <package name="com.zerobase.travel.user.dto.UserDTO"/>

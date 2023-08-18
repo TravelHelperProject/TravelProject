@@ -22,32 +22,32 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     //회원가입
-    public boolean signIn(SignInDTO signInDTO) {
+    public boolean signIn(SignUpDTO signUpDTO) {
 
-        if (userMapper.findUser(signInDTO.getEmail()).isPresent()) {
+        if (userMapper.findUser(signUpDTO.getEmail()).isPresent()) {
             throw new SignInFailedException("중복된 이메일 입니다.");
-        } else if (!signInDTO.getEmail().contains("@")) {
+        } else if (!signUpDTO.getEmail().contains("@")) {
             throw new SignInFailedException("이메일 형식이 아닙니다.");
-        } else if (userMapper.findUserNickname(signInDTO.getNickname()).isPresent()) {
+        } else if (userMapper.findUserNickname(signUpDTO.getNickname()).isPresent()) {
             throw new SignInFailedException("현재 사용중인 닉네임 입니다.");
-        } else if (signInDTO.getPassword().length() < 8) {
+        } else if (signUpDTO.getPassword().length() < 8) {
             throw new SignInFailedException("비밀번호는 8자 이상으로 입력해주세요.");
-        } else if (!signInDTO.getPassword().equals(signInDTO.getPasswordConfirm())) {
+        } else if (!signUpDTO.getPassword().equals(signUpDTO.getPasswordConfirm())) {
             throw new SignInFailedException("비밀번호가 일치하지 않습니다.");
         }
 
         UserDTO userSignIn = UserDTO.builder()
-                .email(signInDTO.getEmail())
-                .password(passwordEncoder.encode(signInDTO.getPassword()))
-                .name(signInDTO.getName())
-                .phoneNum(signInDTO.getPhoneNum())
-                .nickname(signInDTO.getNickname())
+                .email(signUpDTO.getEmail())
+                .password(passwordEncoder.encode(signUpDTO.getPassword()))
+                .name(signUpDTO.getName())
+                .phoneNum(signUpDTO.getPhoneNum())
+                .nickname(signUpDTO.getNickname())
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        userMapper.signIn(userSignIn);
+        userMapper.signUp(userSignIn);
 
-        return userMapper.findUserEmail(signInDTO.getEmail()).isPresent();
+        return userMapper.findUserEmail(signUpDTO.getEmail()).isPresent();
     }
 
     //로그인 토큰발급
