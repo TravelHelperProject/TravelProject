@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper연결시 AccommodationMapper.xml 과 mapper를 연결해줘야 한다.-->
+<!--mybatis-config 연결도 해주어야 함-->
+<mapper namespace="com.zerobase.travel.accommodationreview.mapper.AccommodationReviewMapper">
+
+    <!--   리뷰 전체 조회 기능 -->
+    <select id="reviewList" resultType="com.zerobase.travel.accommodationreview.dto.AccommodationReviewDto">
+        SELECT *
+        FROM accommodation_review
+        WHERE room_id=#{roomId}
+
+    </select>
+
+<!--    리뷰 저장 기능-->
+    <insert id="reviewSave">
+        <selectKey keyProperty="reviewId" resultType="int" order="BEFORE">
+            SELECT IFNULL(MAX(review_id)+1,1) FROM accommodation_review
+        </selectKey>
+        INSERT INTO accommodation_review(review_id,room_id,user_id,content,writer,created_at,updated_at,grade)
+        VALUES (#{reviewId},#{roomId},
+                #{request.userId},#{request.content},#{request.writer},now(),now(),#{request.grade})
+    </insert>
+
+<!--    리뷰 수정 기능-->
+    <update id="reviewUpdate">
+        UPDATE accommodation_review
+        set content=#{request.content},
+            writer=#{request.writer},
+            grade=#{request.grade},
+            updated_at=now()
+        where review_id=#{reviewId}
+    </update>
+
+<!--    리뷰 삭제 기능-->
+    <delete id="reviewDelete">
+        DELETE from accommodation_review
+        where review_id=#{reviewId}
+    </delete>
+
+<!--    리뷰 존재 확인-->
+    <select id="reviewFindById" resultType="com.zerobase.travel.accommodationreview.dto.AccommodationReviewDto">
+        select *
+        from accommodation_review
+        where review_id=#{reviewId}
+    </select>
+
+</mapper>
